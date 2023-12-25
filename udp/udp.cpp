@@ -49,6 +49,36 @@ void udp::ParseMessage(QByteArray& buffer)
 
     qDebug() << messageNumber;
 
+    switch(messageNumber)
+    {
+    case Heartbeat:
+        qDebug() << "Heartbeat";
+        break;
+    case Status:
+        qDebug() << "Status";
+        break;
+    case Decode:
+        qDebug() << "Decode";
+        break;
+    case Clear:
+        qDebug() << "Clear";
+        break;
+    case QSOLogged:
+        qDebug() << "QSOLogged";
+        break;
+    case Close:
+        qDebug() << "Close";
+        break;
+    case WSPRDecode:
+        qDebug() << "WSPRDecode";
+        break;
+    case LoggedADIF:
+        qDebug() << "LoggedADIF";
+        break;
+    default:
+        qDebug() << "Unknown message number received: " << messageNumber;
+        break;
+    }
 }
 
 

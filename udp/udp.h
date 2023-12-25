@@ -10,6 +10,27 @@ class udp : public QObject
 {
     Q_OBJECT
 private:
+    enum Type
+    {
+        Heartbeat,
+        Status,
+        Decode,
+        Clear,
+        Reply,
+        QSOLogged,
+        Close,
+        Replay,
+        HaltTx,
+        FreeText,
+        WSPRDecode,
+        Location,
+        LoggedADIF,
+        HighlightCallsign,
+        SwitchConfiguration,
+        Configure,
+        maximum_message_type_     // ONLY add new message types immediately before here
+    };
+
     QUdpSocket *socket;
     void ParseMessage(QByteArray& buffer);
 public:
