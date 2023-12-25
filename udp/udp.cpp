@@ -1,5 +1,6 @@
 #include "udp.h"
 #include <QDataStream>
+#include <QTime>
 
 udp::udp(QObject *parent) : QObject(parent)
 {
@@ -88,7 +89,15 @@ void udp::decode(QDataStream &stream)
     char *raw;
     stream.readBytes(raw, len);
     QString id = QString::fromUtf8(raw, static_cast<int>(len));
-    qDebug() << "Id: " << id;
+    bool New = false;
+    QTime Time;
+    qint32 snr;
+    double deltaTime;
+    quint32 deltaFrequency;
+    stream >> New >> Time >> snr >> deltaTime >> deltaFrequency;
+    qDebug() << "Id =" << id << "New =" << New << "Time =" << Time << "SNR =" << snr
+             << "DT =" << deltaTime << "DF =" << deltaFrequency;
+
 
 }
 
