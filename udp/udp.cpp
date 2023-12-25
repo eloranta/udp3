@@ -105,12 +105,12 @@ void udp::decode(QDataStream &stream)
 
     stream.readBytes(raw, len);
     QString message = QString::fromUtf8(raw, static_cast<int>(len));
-    //qDebug() << "Message" << message;
+    //qDebug() << "Message:" << message;
 
     QStringList list = message.split(" ");
 
     QString caller = list[1];
-    if (caller == "DX")
+    if (caller == "DX" || caller == "VOTA")
         caller = list[2];
 
     if (!caller.isEmpty() && caller.front() == '<' && caller.back() == '>')
