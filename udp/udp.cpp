@@ -1,6 +1,7 @@
 #include "udp.h"
 #include <QDataStream>
 #include <QTime>
+#include <iostream>
 
 udp::udp(QObject *parent) : QObject(parent)
 {
@@ -53,10 +54,10 @@ void udp::ParseMessage(QByteArray& buffer)
     switch(messageNumber)
     {
     case Heartbeat:
-        qDebug() << "Heartbeat";
+        //qDebug() << "Heartbeat";
         break;
     case Status:
-        qDebug() << "Status";
+        //qDebug() << "Status";
         break;
     case Decode:
         //qDebug() << "Decode";
@@ -95,17 +96,18 @@ void udp::decode(QDataStream &stream)
     double deltaTime;
     quint32 deltaFrequency;
     stream >> New >> Time >> snr >> deltaTime >> deltaFrequency;
-    qDebug() << "Id =" << id << "New =" << New << "Time =" << Time << "SNR =" << snr
-             << "DT =" << deltaTime << "DF =" << deltaFrequency;
+    //qDebug() << "Id =" << id << "New =" << New << "Time =" << Time << "SNR =" << snr
+    //         << "DT =" << deltaTime << "DF =" << deltaFrequency;
 
     stream.readBytes(raw, len);
     QString mode = QString::fromUtf8(raw, static_cast<int>(len));
-    qDebug() << "Mode:" << mode;
+    //qDebug() << "Mode:" << mode;
 
     stream.readBytes(raw, len);
     QString message = QString::fromUtf8(raw, static_cast<int>(len));
-    qDebug() << "Message" << message;
+    //qDebug() << "Message" << message;
 
+    std::cout << message.toStdString() << std::endl;
 }
 
 
