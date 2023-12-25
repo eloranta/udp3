@@ -37,6 +37,14 @@ void udp::ParseMessage(QByteArray& buffer)
         return;
     }
 
+    quint32 schema;
+    stream >> schema;
+    if (schema != 2)
+    {
+        qDebug() << "Schema number not 2: " << schema;
+        return;
+    }
+
 
 }
 
