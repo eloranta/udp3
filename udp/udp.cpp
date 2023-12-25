@@ -98,6 +98,13 @@ void udp::decode(QDataStream &stream)
     qDebug() << "Id =" << id << "New =" << New << "Time =" << Time << "SNR =" << snr
              << "DT =" << deltaTime << "DF =" << deltaFrequency;
 
+    stream.readBytes(raw, len);
+    QString mode = QString::fromUtf8(raw, static_cast<int>(len));
+    qDebug() << "Mode:" << mode;
+
+    stream.readBytes(raw, len);
+    QString message = QString::fromUtf8(raw, static_cast<int>(len));
+    qDebug() << "Message" << message;
 
 }
 
