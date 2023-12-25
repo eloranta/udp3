@@ -107,7 +107,9 @@ void udp::decode(QDataStream &stream)
     QString message = QString::fromUtf8(raw, static_cast<int>(len));
     //qDebug() << "Message" << message;
 
-    std::cout << message.toStdString() << std::endl;
+    QStringList list = message.split(" ");
+    QString caller = list[1];
+    std::cout << caller.toStdString() << std::endl;
 }
 
 
