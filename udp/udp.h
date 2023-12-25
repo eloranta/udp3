@@ -33,9 +33,9 @@ private:
 
     QUdpSocket *socket;
     void ParseMessage(QByteArray& buffer);
+    void decode(QDataStream &stream);
 public:
     explicit udp(QObject *parent = nullptr);
-
 signals:
 
 public slots:

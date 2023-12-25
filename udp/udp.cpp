@@ -26,7 +26,7 @@ void udp::readyRead()
 
 void udp::ParseMessage(QByteArray& buffer)
 {
-    qDebug() << "Message: " << buffer;
+    //qDebug() << "Message: " << buffer;
 
     QDataStream stream(&buffer, QIODevice::ReadOnly);
     quint32 magic;
@@ -47,7 +47,7 @@ void udp::ParseMessage(QByteArray& buffer)
     quint32 messageNumber;
     stream >> messageNumber;
 
-    qDebug() << messageNumber;
+    //qDebug() << messageNumber;
 
     switch(messageNumber)
     {
@@ -58,7 +58,8 @@ void udp::ParseMessage(QByteArray& buffer)
         qDebug() << "Status";
         break;
     case Decode:
-        qDebug() << "Decode";
+        //qDebug() << "Decode";
+        decode(stream);
         break;
     case Clear:
         qDebug() << "Clear";
@@ -80,6 +81,17 @@ void udp::ParseMessage(QByteArray& buffer)
         break;
     }
 }
+
+void udp::decode(QDataStream &stream)
+{
+    uint len;
+    char *raw;
+    stream.readBytes(raw, len);
+    QString id = QString::fromUtf8(raw, static_cast<int>(len));
+    qDebug() << "Id: " << id;
+
+}
+
 
 
 
