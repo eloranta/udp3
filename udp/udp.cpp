@@ -116,11 +116,23 @@ void udp::decode(QDataStream &stream)
     if (!caller.isEmpty() && caller.front() == '<' && caller.back() == '>')
     {
         caller = caller.remove(0, 1);
-        caller.chop(1);
+        if (!caller.isEmpty()) caller.chop(1);
     }
 
-    std::cout << caller.toStdString() << std::endl;
+    QString country = FindCountry(caller);
+
+    std::cout << caller.toStdString() << " " << country.toStdString() << std::endl;
 }
+
+QString udp::FindCountry(QString& call)
+{
+    if (call.isEmpty())
+        return "";
+    if (call[0] == 'E' && call[1] == 'A')
+        return "Spain";
+    return "";
+}
+
 
 
 

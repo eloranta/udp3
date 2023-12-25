@@ -34,6 +34,7 @@ private:
     QUdpSocket *socket;
     void ParseMessage(QByteArray& buffer);
     void decode(QDataStream &stream);
+    QString FindCountry(QString& call);
 public:
     explicit udp(QObject *parent = nullptr);
 signals:
