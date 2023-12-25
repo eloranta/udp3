@@ -11,6 +11,7 @@ class udp : public QObject
     Q_OBJECT
 private:
     QUdpSocket *socket;
+    void ParseMessage(QByteArray& buffer);
 public:
     explicit udp(QObject *parent = nullptr);
 

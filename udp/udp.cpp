@@ -1,4 +1,5 @@
 #include "udp.h"
+#include <QDataStream>
 
 udp::udp(QObject *parent) : QObject(parent)
 {
@@ -16,9 +17,28 @@ void udp::readyRead()
     quint16 senderPort;
     socket->readDatagram(buffer.data(), buffer.size(), &sender, &senderPort);
 
-    qDebug() << "Message from: " << sender.toString();
-    qDebug() << "Message port: " << senderPort;
-    qDebug() << "Message: " << buffer;
+    //qDebug() << "Message from: " << sender.toString();
+    //qDebug() << "Message port: " << senderPort;
+    //qDebug() << "Message: " << buffer;
+
+    ParseMessage(buffer);
 }
+
+void udp::ParseMessage(QByteArray& buffer)
+{
+    qDebug() << "Message: " << buffer;
+
+    QDataStream stream(&buffer, QIODevice::ReadOnly);
+    quint32 magic;
+    stream >> magic;
+    if (magic != 0xadbccbda)
+    {
+        qDebug() << "Magic number not correct: " << magic;
+        return;
+    }
+
+
+}
+
 
 
