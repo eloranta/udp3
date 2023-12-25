@@ -44,7 +44,10 @@ void udp::ParseMessage(QByteArray& buffer)
         qDebug() << "Schema number not 2: " << schema;
         return;
     }
+    quint32 messageNumber;
+    stream >> messageNumber;
 
+    qDebug() << messageNumber;
 
 }
 
