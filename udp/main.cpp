@@ -1,8 +1,9 @@
 #include <QCoreApplication>
+#include "udp.h"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
-
-    return a.exec();
+    QCoreApplication app(argc, argv);
+    udp udp;
+    return app.exec();
 }
