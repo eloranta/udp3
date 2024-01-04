@@ -2,12 +2,34 @@
 #include <QDataStream>
 #include <QTime>
 #include <iostream>
+#include <QCoreApplication>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 udp::udp(QObject *parent) : QObject(parent)
 {
+    ReadDxccJson();
     socket = new QUdpSocket(this);
     socket->bind(QHostAddress::LocalHost, 2237);
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+}
+
+void udp::ReadDxccJson()
+{
+    QString jsonFile = qApp->applicationDirPath() + "/dxcc.json";
+    QFile file;
+    file.setFileName(jsonFile);
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QString text = file.readAll();
+    file.close();
+    qDebug() << text;
+
+    QJsonDocument doc = QJsonDocument::fromJson(text.toUtf8());
+    QJsonObject object = doc.object();
+    QJsonValue value = object.value("dxcc");
+    QJsonArray array = value.toArray();
 }
 
 void udp::readyRead()
