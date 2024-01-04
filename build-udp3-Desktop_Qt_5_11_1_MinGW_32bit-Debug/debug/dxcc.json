@@ -1,18 +1,28 @@
 {
-    "dxcc": [
-        {
-            "E": [
-                {
-                    "Spain": "^(E[A-H])[0-9/]*$"
-                }
-            ]
-        },
-        {
-            "I": [
-                {
-                    "Italy": "^I[A-Z0-9/]*$"
-                }
-            ]
-        }
-    ]
+    "A": "Bahrain",
+    "B": "China",
+    "C": "Portugal",
+    "D": "Germany",
+    "E": "Spain",
+    "F": "France",
+    "G": "England",
+    "H": "Hungary",
+    "I": "Italy",
+    "J": "Japan",
+    "K": "USA",
+    "L": "Lorway",
+    "M": "England",
+    "N": "USA",
+    "O": "Finland",
+    "P": "Brasilia",
+    "Q": "Unknown",
+    "R": "Russia",
+    "S": "Sweden",
+    "T": "Turkey",
+    "U": "Russia",
+    "V": "Australia",
+    "W": "USA",
+    "X": "Vietnam",
+    "Y": "Indonesia",
+    "Z": "Kosovo"
 }

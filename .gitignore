@@ -12,6 +12,7 @@
 *.rej
 *.so
 *.so.*
+*.stash
 *_pch.h.cpp
 *_resource.rc
 *.qm
@@ -26,6 +27,7 @@ tags
 Makefile*
 *.prl
 *.app
+moc_*.h
 moc_*.cpp
 ui_*.h
 qrc_*.cpp

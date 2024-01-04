@@ -32,6 +32,7 @@ private:
     };
 
     QUdpSocket *socket;
+    QVariantMap dxccMap;
     void ParseMessage(QByteArray& buffer);
     void decode(QDataStream &stream);
     QString FindCountry(QString& call);

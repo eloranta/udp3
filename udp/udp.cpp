@@ -24,12 +24,20 @@ void udp::ReadDxccJson()
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QString text = file.readAll();
     file.close();
-    qDebug() << text;
+    //qDebug() << text;
 
     QJsonDocument doc = QJsonDocument::fromJson(text.toUtf8());
-    QJsonObject object = doc.object();
-    QJsonValue value = object.value("dxcc");
-    QJsonArray array = value.toArray();
+    dxccMap = doc.object().toVariantMap();
+//    qDebug() << dxccMap;
+
+//    QJsonObject object = doc.object();
+//    QJsonValue value = object.value("dxcc");
+//    QJsonArray array = value.toArray();
+//    //qDebug() << array.toVariantList().toVector();
+//    QVector<QVariant> v =  array.toVariantList().toVector();
+//    //for (QVariant v1: v)
+      //  qDebug() << v1.toMap();
+
 }
 
 void udp::readyRead()
@@ -143,16 +151,17 @@ void udp::decode(QDataStream &stream)
 
     QString country = FindCountry(caller);
 
-    std::cout << caller.toStdString() << " " << country.toStdString() << std::endl;
+    std::cout << caller.toStdString() << "\t\t" << country.toStdString() << std::endl;
 }
 
 QString udp::FindCountry(QString& call)
 {
     if (call.isEmpty())
         return "";
-    if (call[0] == 'E' && call[1] == 'A')
-        return "Spain";
-    return "";
+   QVariant var =  dxccMap[call.at(0)];
+   if (!var.isValid())
+       return "";
+   return var.toString();
 }
 
 
