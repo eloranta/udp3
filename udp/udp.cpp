@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonArray>
+#include "QRegularExpression"
 
 udp::udp(QObject *parent) : QObject(parent)
 {
@@ -27,17 +27,16 @@ void udp::ReadDxccJson()
     //qDebug() << text;
 
     QJsonDocument doc = QJsonDocument::fromJson(text.toUtf8());
-    dxccMap = doc.object().toVariantMap();
-//    qDebug() << dxccMap;
+    if (doc.isNull())
+    {
+        qDebug() << "Error in parsing worked.json";
+        return;
+    }
+    //qDebug() << doc;
 
-//    QJsonObject object = doc.object();
-//    QJsonValue value = object.value("dxcc");
-//    QJsonArray array = value.toArray();
-//    //qDebug() << array.toVariantList().toVector();
-//    QVector<QVariant> v =  array.toVariantList().toVector();
-//    //for (QVariant v1: v)
-      //  qDebug() << v1.toMap();
-
+    QJsonObject object = doc.object();
+    QJsonValue value = object.value("dxcc");
+    array = value.toArray();
 }
 
 void udp::readyRead()
@@ -156,12 +155,18 @@ void udp::decode(QDataStream &stream)
 
 QString udp::FindCountry(QString& call)
 {
-    if (call.isEmpty())
-        return "";
-   QVariant var =  dxccMap[call.at(0)];
-   if (!var.isValid())
-       return "";
-   return var.toString();
+    foreach (const QJsonValue & value, array)
+    {
+        QRegularExpression rx(value.toObject().value("prefixRegex").toString());
+        QRegularExpressionMatch match = rx.match(call);
+        if (match.hasMatch())
+        {
+            //dxcc = QString::number(value.toObject().value("entityCode").toInt());
+            return value.toObject().value("name").toString();
+            //continent = value.toObject().value("continent").toArray()[0].toString();
+        }
+    }
+    return "not found";
 }
 
 

@@ -3,8 +3,7 @@
 
 #include <QObject>
 #include <QUdpSocket>
-
-#include <QObject>
+#include <QJsonArray>
 
 class udp : public QObject
 {
@@ -32,7 +31,7 @@ private:
     };
 
     QUdpSocket *socket;
-    QVariantMap dxccMap;
+    QJsonArray array;
     void ParseMessage(QByteArray& buffer);
     void decode(QDataStream &stream);
     QString FindCountry(QString& call);
