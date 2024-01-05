@@ -139,7 +139,13 @@ void udp::decode(QDataStream &stream)
     QStringList list = message.split(" ");
 
     QString caller = list[1];
-    if (caller == "DX" || caller == "VOTA")
+    if (caller.isEmpty())
+        return;
+    if (caller.length() < 3)
+        return;
+    if (caller == "RR73"|| caller == "RR73;" || caller == "...")
+        return;
+    if (caller == "USA" || caller == "VOTA")
         caller = list[2];
 
     if (!caller.isEmpty() && caller.front() == '<' && caller.back() == '>')
